@@ -1,0 +1,27 @@
+# Case statement (material do processo seletivo — não versionado)
+CASE_SRM.md
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Ambiente
+.env
+.env.local
+
+# IDE / SO
+.vscode/
+.idea/
+.DS_Store
