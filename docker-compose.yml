@@ -1,0 +1,32 @@
+name: srm-credit-engine
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-srm}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-srm}
+      POSTGRES_DB: ${POSTGRES_DB:-srm_credit}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-srm} -d ${POSTGRES_DB:-srm_credit}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    environment:
+      SRM_ENVIRONMENT: ${SRM_ENVIRONMENT:-local}
+      SRM_LOG_LEVEL: ${SRM_LOG_LEVEL:-INFO}
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
