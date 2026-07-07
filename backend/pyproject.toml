@@ -56,6 +56,9 @@ plugins = ["pydantic.mypy"]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
 testpaths = ["tests"]
+markers = [
+    "integration: requires a running postgres (docker compose up db)",
+]
 
 [tool.coverage.run]
 source = ["src/app"]

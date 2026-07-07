@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 
-.PHONY: help install hooks up down dev-api dev-web test test-api test-web lint format
+.PHONY: help install hooks up down dev-api dev-web test test-api test-integration test-web lint format
 
 help: ## Lista os comandos disponíveis
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-12s\033[0m %s\n", $$1, $$2}'
@@ -26,8 +26,11 @@ dev-web: ## Roda o frontend em modo dev
 
 test: test-api test-web ## Roda todos os testes
 
-test-api: ## Testes do backend
-	cd backend && uv run pytest
+test-api: ## Testes unitários do backend
+	cd backend && uv run pytest tests/unit
+
+test-integration: ## Testes de integração do backend (requer: docker compose up db)
+	cd backend && uv run pytest tests/integration
 
 test-web: ## Testes do frontend
 	cd frontend && npm run test
