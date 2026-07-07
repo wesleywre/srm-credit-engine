@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     log_json: bool = True
     api_v1_prefix: str = "/api/v1"
+    database_url: str = "postgresql+asyncpg://srm:srm@localhost:5432/srm_credit"
+    db_echo: bool = False
 
 
 @lru_cache
