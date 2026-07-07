@@ -22,6 +22,8 @@ services:
     environment:
       SRM_ENVIRONMENT: ${SRM_ENVIRONMENT:-local}
       SRM_LOG_LEVEL: ${SRM_LOG_LEVEL:-INFO}
+      SRM_DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:-srm}:${POSTGRES_PASSWORD:-srm}@db:5432/${POSTGRES_DB:-srm_credit}
+      SRM_SEED_DEMO: ${SRM_SEED_DEMO:-true}
     ports:
       - "${BACKEND_PORT:-8000}:8000"
     depends_on:

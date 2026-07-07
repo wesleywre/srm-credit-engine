@@ -49,7 +49,7 @@ known-first-party = ["app"]
 strict = true
 python_version = "3.12"
 mypy_path = "src"
-files = ["src/app", "tests"]
+files = ["src/app", "tests", "scripts"]
 plugins = ["pydantic.mypy"]
 
 [tool.pytest.ini_options]
