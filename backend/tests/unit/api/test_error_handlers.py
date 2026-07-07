@@ -3,13 +3,14 @@ from collections.abc import AsyncIterator
 import httpx
 import pytest
 
+from app.core.config import Settings
 from app.domain.exceptions import ConflictError, DomainError, NotFoundError
 from app.main import create_app
 
 
 @pytest.fixture
-async def failing_client() -> AsyncIterator[httpx.AsyncClient]:
-    app = create_app()
+async def failing_client(app_settings: Settings) -> AsyncIterator[httpx.AsyncClient]:
+    app = create_app(app_settings)
 
     @app.get("/boom/not-found")
     async def _not_found() -> None:
